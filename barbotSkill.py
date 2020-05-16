@@ -12,7 +12,7 @@ sb = SkillBuilder()
 @sb.request_handler(can_handle_func=is_intent_name('MakeCocktail'))
 def make_cocktail_handler(handler_input):
     if('cocktail' in handler_input.request_envelope.request.intent.slots):
-        cocktail = handler_input.request_envelope.request.intent.slots['cocktail']['value']
+        cocktail = handler_input.request_envelope.request.intent.slots['cocktail'].value
         speech = "Making your {} cocktail.".format(cocktail)
         handler_input.response_builder.set_should_end_session(True)
     else:
