@@ -11,6 +11,7 @@ sb = SkillBuilder()
 
 @sb.request_handler(can_handle_func=is_intent_name('MakeCocktail'))
 def make_cocktail_handler(handler_input):
+    print(handler_input.attributes_manager.session_attributes)
     if('cocktail' in handler_input.attributes_manager.session_attributes):
         cocktail = handler_input.attributes_manager.session_attributes['cocktail']
         speech = "Making your {} cocktail.".format(cocktail)
