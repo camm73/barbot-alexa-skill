@@ -22,4 +22,4 @@ def make_cocktail_handler(handler_input):
     return handler_input.response_builder.response
 
 
-lambda_handler = sb.lambda_handler
+lambda_handler = sb.lambda_handler()
