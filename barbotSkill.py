@@ -5,10 +5,11 @@ from ask_sdk_model import Response
 from ask_sdk_model.ui import SimpleCard
 from ask_sdk_core.skill_builder import SkillBuilder
 
+import boto3
+
 sb = SkillBuilder()
 
-@sb.request_handler(can_handle_func=lambda handler_input:
-    is_intent_name('MakeCocktail'))
+@sb.request_handler(can_handle_func=is_intent_name('MakeCocktail'))
 def make_cocktail_handler(handler_input):
     if('cocktail' in handler_input.attributes_manager.session_attributes):
         cocktail = handler_input.attributes_manager.session_attributes['cocktail']
