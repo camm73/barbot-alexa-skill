@@ -16,7 +16,6 @@ sb = SkillBuilder()
 def make_cocktail_handler(handler_input):
     if('cocktail' in handler_input.request_envelope.request.intent.slots):
         cocktail = handler_input.request_envelope.request.intent.slots['cocktail'].value
-        print(handler_input.request_envelope.request.intent.confirmation_status)
         confirmationStatus = handler_input.request_envelope.request.intent.confirmation_status
 
         if(confirmationStatus == IntentConfirmationStatus.CONFIRMED):
