@@ -36,7 +36,7 @@ def make_cocktail_handler(handler_input):
 
             print(iotResponse)
         else:
-            speech = "OK. Ask me again when you are ready to make your cocktail."
+            speech = "OK. Ask me again when you're ready to make your cocktail."
             handler_input.response_builder.set_should_end_session(True)
     else:
         speech = "I was unable to understand what cocktail you requested"
