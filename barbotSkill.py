@@ -65,7 +65,7 @@ def handle_menu(handler_input):
 
     parsedRes = json.loads(menuResponse['payload'].read().decode('utf-8'))
 
-    menuArr = parsedRes.state.desired.menu
+    menuArr = parsedRes['state']
 
     speech = "Today's menu includes: "
 
