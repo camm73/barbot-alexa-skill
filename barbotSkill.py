@@ -63,8 +63,7 @@ def handle_menu(handler_input):
 
     menuResponse = iotClient.get_thing_shadow(thingName='BarBot')
 
-    print(menuResponse)
-    print('Got response')
+    print(menuResponse['payload'])
 
     speech = "Here's the menu"
     handler_input.response_builder.set_should_end_session(True)
