@@ -87,6 +87,7 @@ def set_alcohol_mode(handler_input):
     if('setting' in handler_input.request_envelope.request.intent.slots):
         mode_setting = handler_input.request_envelope.request.intent.slots['setting'].value
 
+        print(mode_setting)
         if(mode_setting == True):
             speech = 'OK. Turning on alcohol mode.'
         else:
