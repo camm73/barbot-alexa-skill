@@ -63,9 +63,9 @@ def handle_menu(handler_input):
 
     menuResponse = iotClient.get_thing_shadow(thingName='BarBot')
 
-    parsedRes = menuResponse['payload'].read().decode('utf-8')
+    parsedRes = json.loads(menuResponse['payload'].read().decode('utf-8'))
 
-    menuArr = parsedRes['state']['desired']['menu']
+    menuArr = parsedRes['state']['desired']['menu'])
 
     speech = "Today's menu includes: "
 
