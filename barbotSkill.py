@@ -82,7 +82,32 @@ def handle_menu(handler_input):
     return handler_input.response_builder.response
 
 
+@sb.request_handler(can_handle_func=is_intent_name('SetAlcoholModeIntent'))
+def set_alcohol_mode(handler_input):
+    if('setting' in handler_input.request_envelope.request.intent.slots):
+        mode_setting = handler_input.request_envelope.request.intent.slots['setting'].value
+
+        if(mode_setting == True):
+            speech = 'OK. Turning on alcohol mode.'
+        else:
+            speech = "OK. Turning off alcohol mode."
+
+        iotPayload = {
+            "action": "alcoholMode",
+            "data": mode_setting
+        }
+
+        iotResponse = iotClient.publish(
+            topic='barbot-main',
+            qos=1,
+            payload=json.dumps(iotPayload)
+        )
+        
+    else:
+        speech = "I was unable to understand whether you want to turn alcohol mode on or off."
     
-    
+    handler_input.response_builder.set_should_end_session(True)
+    handler_input.response_builder.speak(speech)
+    return handler_input.response_builder.response
 
 lambda_handler = sb.lambda_handler()
