@@ -67,7 +67,7 @@ def handle_menu(handler_input):
 
     menuArr = parsedRes['state']
 
-    print(menuArr['desired'])
+    print(menuArr['desired']['menu'])
 
     speech = "Today's menu includes: "
 
