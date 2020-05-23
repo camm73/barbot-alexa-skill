@@ -7,6 +7,8 @@ from ask_sdk_core.skill_builder import SkillBuilder
 
 import boto3
 import json
+import secrets
+import time
 
 iotClient = boto3.client('iot-data', region_name='us-east-1')
 
@@ -20,7 +22,7 @@ def make_cocktail_handler(handler_input):
 
         if(confirmationStatus == IntentConfirmationStatus.CONFIRMED):
             speech = "Making your {} cocktail.".format(cocktail)
-            handler_input.response_builder.set_should_end_session(True)
+            #handler_input.response_builder.set_should_end_session(True)
 
             iotPayload = {
                 "action": "makeCocktail",
@@ -36,12 +38,41 @@ def make_cocktail_handler(handler_input):
             print(iotResponse)
         else:
             speech = "OK. Ask me again when you're ready to make your cocktail."
-            handler_input.response_builder.set_should_end_session(True)
+            #handler_input.response_builder.set_should_end_session(True)
     else:
         speech = "I was unable to understand what cocktail you requested"
 
+    handler_input.response_builder.set_should_end_session(True)
     handler_input.response_builder.speak(speech)
     return handler_input.response_builder.response
 
+
+@sb.request_handler(can_handle_func=is_intent_name('MenuIntent'))
+def handle_menu(handler_input):
+    iotPayload = {
+        "action": "getMenu"
+    }
+
+    iotResponse = iotClient.publish(
+        topic='barbot-main',
+        qos=1,
+        payload=json.dumps(iotPayload)
+    )
+
+    time.sleep(1)
+
+    menuResponse = iotClient.get_thing_shadow(thingName='BarBot')
+
+    print(menuResponse)
+    print('Got response')
+
+    speech = "Here's the menu"
+    handler_input.response_builder.set_should_end_session(True)
+    handler_input.response_builder.speak(speech)
+    return handler_input.response_builder.response
+
+
+    
+    
 
 lambda_handler = sb.lambda_handler()
