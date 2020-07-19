@@ -68,14 +68,17 @@ def handle_menu(handler_input):
     menuArr = parsedRes['state']
     menuArr = menuArr['desired']['menu']
 
-    speech = "Today's menu includes: "
+    if(len(menuArr) > 0):
+        speech = "Today's menu includes: "
 
-    #List out the available drinks
-    for i in range(len(menuArr) - 1):
-        speech += menuArr[i] + ', '
+        #List out the available drinks
+        for i in range(len(menuArr) - 1):
+            speech += menuArr[i] + ', '
 
-    #Add final item
-    speech += 'and ' + menuArr[-1] + "."
+        #Add final item
+        speech += 'and ' + menuArr[-1] + "."
+    else:
+        speech = "There is nothing on the menu right now. Try adding some ingredients in the BarBot mobile app."
     
     handler_input.response_builder.set_should_end_session(True)
     handler_input.response_builder.speak(speech)
