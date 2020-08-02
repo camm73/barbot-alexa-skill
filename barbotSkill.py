@@ -31,7 +31,7 @@ def make_cocktail_handler(handler_input):
 
             iotResponse = iotClient.publish(
                 topic='barbot-main',
-                qos=1,
+                qos=0,
                 payload=json.dumps(iotPayload)
             )
 
@@ -109,7 +109,7 @@ def set_alcohol_mode(handler_input):
 
         iotResponse = iotClient.publish(
             topic='barbot-main',
-            qos=1,
+            qos=0,
             payload=json.dumps(iotPayload)
         )
         
