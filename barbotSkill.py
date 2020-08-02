@@ -55,7 +55,7 @@ def handle_menu(handler_input):
 
     iotResponse = iotClient.publish(
         topic='barbot-main',
-        qos=1,
+        qos=0,
         payload=json.dumps(iotPayload)
     )
 
