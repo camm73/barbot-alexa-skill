@@ -33,7 +33,7 @@ def make_cocktail_handler(handler_input):
             print('Publishing request to make cocktail')
             iotResponse = iotClient.publish(
                 topic='barbot-main',
-                qos=1,
+                qos=0,
                 payload=json.dumps(iotPayload)
             )
 
