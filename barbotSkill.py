@@ -124,7 +124,6 @@ def set_alcohol_mode(handler_input):
 @sb.request_handler(can_handle_func=is_intent_name('AMAZON.FallbackIntent'))
 def fallback(handler_input):
     speech = "I'm sorry. I'm sure how to handle that request."
-    handler_input.set_should_end_session(True)
     handler_input.response_builder.speak(speech)
 
     return handler_input.response_builder.response
@@ -132,10 +131,8 @@ def fallback(handler_input):
 @sb.request_handler(can_handle_func=is_intent_name('AMAZON.HelpIntent'))
 def help(handler_input):
     speech = 'You can ask me for the cocktail menu, to make you a cocktail, or set alcohol mode.'
-    handler_input.set_should_end_session(False)
     handler_input.response_builder.speak(speech)
 
     return handler_input.response_builder.response
-
 
 lambda_handler = sb.lambda_handler()
