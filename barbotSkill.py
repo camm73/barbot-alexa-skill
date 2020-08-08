@@ -16,6 +16,7 @@ sb = SkillBuilder()
 
 @sb.request_handler(can_handle_func=is_intent_name('MakeCocktail'))
 def make_cocktail_handler(handler_input):
+    print('Make Cocktail intent')
     if('cocktail' in handler_input.request_envelope.request.intent.slots):
         cocktail = handler_input.request_envelope.request.intent.slots['cocktail'].value
         confirmationStatus = handler_input.request_envelope.request.intent.confirmation_status
@@ -29,6 +30,7 @@ def make_cocktail_handler(handler_input):
                 "data": cocktail.lower()
             }
 
+            print('Publishing request to make cocktail')
             iotResponse = iotClient.publish(
                 topic='barbot-main',
                 qos=1,
