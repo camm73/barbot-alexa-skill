@@ -9,6 +9,7 @@ import boto3
 import json
 import secrets
 import time
+from datetime import datetime, timezone
 
 iotClient = boto3.client('iot-data', region_name='us-east-1')
 
@@ -27,7 +28,8 @@ def make_cocktail_handler(handler_input):
 
             iotPayload = {
                 "action": "makeCocktail",
-                "data": cocktail.lower()
+                "data": cocktail.lower(),
+                "time": int(datetime.utcnow().replace(tzinfo=timezone.utc).timestamp())
             }
 
             print('Publishing request to make cocktail')
@@ -52,7 +54,8 @@ def make_cocktail_handler(handler_input):
 @sb.request_handler(can_handle_func=is_intent_name('MenuIntent'))
 def handle_menu(handler_input):
     iotPayload = {
-        "action": "getMenu"
+        "action": "getMenu",
+        "time": int(datetime.utcnow().replace(tzinfo=timezone.utc).timestamp())
     }
 
     iotResponse = iotClient.publish(
@@ -106,7 +109,8 @@ def set_alcohol_mode(handler_input):
 
         iotPayload = {
             "action": "alcoholMode",
-            "data": mode_setting
+            "data": mode_setting,
+            "time": int(datetime.utcnow().replace(tzinfo=timezone.utc).timestamp())
         }
 
         iotResponse = iotClient.publish(
